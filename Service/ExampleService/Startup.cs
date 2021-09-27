@@ -1,39 +1,44 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ExampleService.Context;
-using Microsoft.EntityFrameworkCore;
-
 namespace ExampleService
 {
+	using ExampleService.Context;
+	using Microsoft.AspNetCore.Builder;
+	using Microsoft.AspNetCore.Hosting;
+	using Microsoft.EntityFrameworkCore;
+	using Microsoft.Extensions.Configuration;
+	using Microsoft.Extensions.DependencyInjection;
+	using Microsoft.Extensions.Hosting;
+	using Microsoft.OpenApi.Models;
+
+	/// <summary>
+	/// Start up class.
+	/// </summary>
 	public class Startup
 	{
+		private const string MyAllowSpecificOrigins = "AllowSpecificOrigin";
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Startup"/> class.
+		/// </summary>
+		/// <param name="configuration">The configuration key/value collection.</param>
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
 		}
 
-		readonly string MyAllowSpecificOrigins = "AllowSpecificOrigin";
-
+		/// <summary>
+		/// Gets the configuration collection.
+		/// </summary>
 		public IConfiguration Configuration { get; }
 
-		// This method gets called by the runtime. Use this method to add services to the container.
+		/// <summary>
+		/// This method gets called by the runtime. Use this method to add services to the container.
+		/// </summary>
+		/// <param name="services">The service collection.</param>
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddCors(options =>
 			{
-				options.AddPolicy(MyAllowSpecificOrigins,
-					builder => builder.WithOrigins("http://localhost:3001"));
+				options.AddPolicy(MyAllowSpecificOrigins, builder => builder.WithOrigins("http://localhost:3001"));
 			});
 
 			services.AddControllers();
