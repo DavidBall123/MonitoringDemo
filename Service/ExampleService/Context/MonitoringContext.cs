@@ -1,22 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using ExampleService.Models;
-using Microsoft.EntityFrameworkCore;
-
-namespace ExampleService.Context
+﻿namespace ExampleService.Context
 {
-    public class MonitoringContext : DbContext
+	using ExampleService.Models;
+	using Microsoft.EntityFrameworkCore;
+
+	/// <summary>
+	/// The monitoring context class.
+	/// </summary>
+	public class MonitoringContext : DbContext
     {
-	    public MonitoringContext(DbContextOptions<MonitoringContext> options)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="MonitoringContext"/> class.
+		/// </summary>
+		/// <param name="options">The db context options. </param>
+		public MonitoringContext(DbContextOptions<MonitoringContext> options)
 	    : base(options)
 	    {
-		    
 	    }
 
+		/// <summary>
+		/// Gets or sets the db weather examples.
+		/// </summary>
 		public DbSet<WeatherExample> WeatherExamples { get; set; }
     }
 }
